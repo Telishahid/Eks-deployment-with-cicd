@@ -18,6 +18,9 @@ resource "aws_eks_cluster" "shahid-cluster" {
   name     = "shahid-cluster"
   role_arn = aws_iam_role.example.arn
 
+  access_config {
+  authentication_mode = "API_AND_CONFIG_MAP"
+  }
   vpc_config {
     subnet_ids = data.aws_subnets.available-subnets.ids
   }
@@ -45,7 +48,7 @@ resource "aws_eks_node_group" "node-grp" {
   subnet_ids      = data.aws_subnets.available-subnets.ids
   capacity_type   = "ON_DEMAND"
   disk_size       = "20"
-  instance_types  = ["t3.micro"]
+  instance_types  = ["c7i-flex.large"]
   labels = tomap({ env = "dev" })
 
   scaling_config {
