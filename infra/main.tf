@@ -63,3 +63,19 @@ resource "aws_eks_node_group" "node-grp" {
     aws_iam_role_policy_attachment.AmazonEC2ContainerRegistryReadOnly
     ]  
 }
+
+resource "aws_eks_access_entry" "shahidteli-admin" {
+  cluster_name  = aws_eks_cluster.shahid-cluster.name
+  principal_arn = "arn:aws:iam::<ACCOUNT-ID>:user/shahidteli"
+  type          = "STANDARD"
+}
+
+resource "aws_eks_access_policy_association" "shahidteli-admin-policy" {
+  cluster_name  = aws_eks_cluster.shahid-cluster.name
+  principal_arn = aws_eks_access_entry.shahidteli-admin.principal_arn
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+
+  access_scope {
+    type = "cluster"
+  }
+}
