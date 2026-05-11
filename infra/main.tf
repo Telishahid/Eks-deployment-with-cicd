@@ -66,7 +66,7 @@ resource "aws_eks_node_group" "node-grp" {
 
 resource "aws_eks_access_entry" "shahidteli-admin" {
   cluster_name  = aws_eks_cluster.shahid-cluster.name
-  principal_arn = "arn:aws:iam::<ACCOUNT-ID>:user/shahidteli"
+  principal_arn = "arn:aws:iam::861276093737:user/shahidteli"
   type          = "STANDARD"
 }
 
